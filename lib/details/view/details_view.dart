@@ -56,85 +56,28 @@ class _DetailsViewState extends State<DetailsView> {
                       ),
                     ),
                     const SizedBox(height: 20),
-
                     // Card de Contato
-                    Card(
-                      margin: const EdgeInsets.symmetric(vertical: 8),
-                      child: ListTile(
-                        leading: const Icon(Icons.email),
-                        title: Text(user.email),
-                        subtitle: Text('Username: ${user.login.username}'),
-                      ),
-                    ),
-                    Card(
-                      margin: const EdgeInsets.symmetric(vertical: 8),
-                      child: ListTile(
-                        leading: const Icon(Icons.phone),
-                        title: Text(user.phone),
-                        subtitle: Text('Cell: ${user.cell}'),
-                      ),
-                    ),
-
+                    _buildContactCard(user),
+                    // Card de Telefone
+                    _buildPhoneCard(user),
                     // Card de Endereço
-                    Card(
-                      margin: const EdgeInsets.symmetric(vertical: 8),
-                      child: ListTile(
-                        leading: const Icon(Icons.home),
-                        title: Text(
-                            '${user.location.street.number} ${user.location.street.name}, ${user.location.city}'),
-                        subtitle: Text(
-                            '${user.location.state}, ${user.location.country}, ${user.location.postcode}'),
-                      ),
-                    ),
-
+                    _buildAddressCard(user),
                     // Card de Coordenadas e Timezone
-                    Card(
-                      margin: const EdgeInsets.symmetric(vertical: 8),
-                      child: ListTile(
-                        leading: const Icon(Icons.map),
-                        title: Text(
-                            'Lat: ${user.location.coordinates.latitude}, Long: ${user.location.coordinates.longitude}'),
-                        subtitle: Text(
-                            'Timezone: ${user.location.timezone.description} (${user.location.timezone.offset})'),
-                      ),
-                    ),
-
+                    _buildMapCard(user),
                     // Card de Datas
-                    Card(
-                      margin: const EdgeInsets.symmetric(vertical: 8),
-                      child: ListTile(
-                        leading: const Icon(Icons.cake),
-                        title: Text('Nascimento: ${user.dob.date}'),
-                        subtitle: Text('Idade: ${user.dob.age}'),
-                      ),
-                    ),
-                    Card(
-                      margin: const EdgeInsets.symmetric(vertical: 8),
-                      child: ListTile(
-                        leading: const Icon(Icons.date_range),
-                        title: Text('Registrado: ${user.registered.date}'),
-                        subtitle: Text('Há ${user.registered.age} anos'),
-                      ),
-                    ),
-
+                    _buildBirthdayCard(user),
+                    // Card de Datas de Registro
+                    _buildRegisteredCard(user),
                     // Card de ID
-                    Card(
-                      margin: const EdgeInsets.symmetric(vertical: 8),
-                      child: ListTile(
-                        leading: const Icon(Icons.perm_identity),
-                        title: Text('NINO: ${user.id.value}'),
-                        subtitle: Text('Nationality: ${user.nat}'),
-                      ),
-                    ),
+                    _buildIdCard(user),
                   ],
                 ),
               );
             },
           ),
           floatingActionButton: Column(
-            mainAxisSize:
-                MainAxisSize.min, // mantém o tamanho ajustado aos FABs
-            crossAxisAlignment: CrossAxisAlignment.end, // alinha à direita
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               FloatingActionButton(
                 heroTag: 'btn1',
@@ -171,5 +114,85 @@ class _DetailsViewState extends State<DetailsView> {
             ],
           ),
         ));
+  }
+
+  Widget _buildContactCard(User user) {
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      child: ListTile(
+        leading: const Icon(Icons.email),
+        title: Text(user.email),
+        subtitle: Text('Username: ${user.login.username}'),
+      ),
+    );
+  }
+
+  Widget _buildPhoneCard(User user) {
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      child: ListTile(
+        leading: const Icon(Icons.phone),
+        title: Text(user.phone),
+        subtitle: Text('Cell: ${user.cell}'),
+      ),
+    );
+  }
+
+  Widget _buildAddressCard(User user) {
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      child: ListTile(
+        leading: const Icon(Icons.home),
+        title: Text(
+            '${user.location.street.number} ${user.location.street.name}, ${user.location.city}, ${user.location.state}, ${user.location.country}'),
+        subtitle: Text('CEP: ${user.location.postcode}'),
+      ),
+    );
+  }
+
+  Widget _buildMapCard(User user) {
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      child: ListTile(
+        leading: const Icon(Icons.map),
+        title: Text(
+            'Lat: ${user.location.coordinates.latitude}, Long: ${user.location.coordinates.longitude}'),
+        subtitle: Text(
+            'Timezone: ${user.location.timezone.description} (${user.location.timezone.offset})'),
+      ),
+    );
+  }
+
+  Widget _buildBirthdayCard(User user) {
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      child: ListTile(
+        leading: const Icon(Icons.cake),
+        title: Text('Nascimento: ${user.dob.date}'),
+        subtitle: Text('Idade: ${user.dob.age}'),
+      ),
+    );
+  }
+
+  Widget _buildRegisteredCard(User user) {
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      child: ListTile(
+        leading: const Icon(Icons.date_range),
+        title: Text('Registrado: ${user.registered.date}'),
+        subtitle: Text('Há ${user.registered.age} anos'),
+      ),
+    );
+  }
+
+  Widget _buildIdCard(User user) {
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      child: ListTile(
+        leading: const Icon(Icons.perm_identity),
+        title: Text('NINO: ${user.id.value}'),
+        subtitle: Text('Nationality: ${user.nat}'),
+      ),
+    );
   }
 }
